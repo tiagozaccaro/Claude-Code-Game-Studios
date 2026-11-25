@@ -1,0 +1,796 @@
+{
+  "_generated": "tools/ports/port.mjs from .claude/settings.json — do not edit",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "script": ".claude/hooks/session-start.sh",
+            "timeout": 20,
+            "async": false
+          },
+          {
+            "script": ".claude/hooks/detect-gaps.sh",
+            "timeout": 10,
+            "async": false
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "script": ".claude/hooks/validate-commit.sh",
+            "timeout": 15,
+            "async": false
+          },
+          {
+            "script": ".claude/hooks/validate-push.sh",
+            "timeout": 10,
+            "async": false
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "script": ".claude/hooks/validate-registry.sh",
+            "timeout": 15,
+            "async": false
+          },
+          {
+            "script": ".claude/hooks/validate-write.sh",
+            "timeout": 15,
+            "async": false
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "script": ".claude/hooks/validate-read.sh",
+            "timeout": 10,
+            "async": false
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "script": ".claude/hooks/validate-assets.sh",
+            "timeout": 10,
+            "async": false
+          },
+          {
+            "script": ".claude/hooks/validate-skill-change.sh",
+            "timeout": 5,
+            "async": false
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|idle_prompt",
+        "hooks": [
+          {
+            "script": ".claude/hooks/notify.sh",
+            "timeout": 10,
+            "async": false
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "script": ".claude/hooks/pre-compact.sh",
+            "timeout": 10,
+            "async": false
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "script": ".claude/hooks/session-stop.sh",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "script": ".claude/hooks/log-agent.sh",
+            "timeout": 5,
+            "async": false
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "script": ".claude/hooks/log-agent-stop.sh",
+            "timeout": 5,
+            "async": false
+          },
+          {
+            "script": ".claude/hooks/validate-agent-artifact.sh",
+            "timeout": 10,
+            "async": false
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      {
+        "tool": "Bash",
+        "pattern": "dir *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "python -m pytest *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "py -m pytest *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/artifact-check.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/adr-status.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/adr-dep-graph.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/agent-check.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/compat-inventory.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/cut-read.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/game-read.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/gdd-structure-check.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/md-section.sh list *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/md-section.sh extract *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/md-section.sh status *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/project-coherence.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/project-state.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/registry.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/review-receipts.sh check *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/review-receipts.sh hash *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/review-scope.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/story-facts.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/story-status.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/web-detect.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/scripts/write-guard.sh *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/hooks/yaml-helper.sh resolve_config *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/hooks/yaml-helper.sh get_yaml_key *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/hooks/yaml-helper.sh get_effective_yaml_key *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/hooks/yaml-helper.sh resolve_setting *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/hooks/yaml-helper.sh is_locally_overridable *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/hooks/yaml-helper.sh validate_enum_value *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "bash .claude/hooks/yaml-helper.sh validate_yaml_enum *"
+      }
+    ],
+    "deny": [
+      {
+        "tool": "Bash",
+        "pattern": "rm -rf *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -fr *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -r -f *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -f -r *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -Rf *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -fR *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -rf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -fr*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -Rf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -fR*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -R -f *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -f -R *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm --recursive --force*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm --force --recursive*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -r --force*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -R --force*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm --force -r*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm --force -R*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm --recursive -f*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "rm -f --recursive*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git push --force*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git push -f *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git push *--force*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git push * -f*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git push * +*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git * push *--force*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *push* -f*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *push* -uf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *push* +*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git reset --hard*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *reset *--hard*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -f*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* --force*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -df*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -dxf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -dXf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -xf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -xdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -Xf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -Xdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -qf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git clean* -qdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -f*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* --force*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -df*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -qf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -xf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -Xf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -dqf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -qdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -dxf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -xdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -dXf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -Xdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -qxf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -xqf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -qXf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -Xqf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -dqxf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -dxqf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -qdxf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -qxdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -xdqf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -xqdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -dqXf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -dXqf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -qdXf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -qXdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -Xdqf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "git *clean* -Xqdf*"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "sudo *"
+      },
+      {
+        "tool": "Bash",
+        "pattern": "chmod 777*"
+      },
+      {
+        "tool": "Read",
+        "pattern": "**/.env*"
+      },
+      {
+        "tool": "Edit",
+        "pattern": "**/.env*"
+      },
+      {
+        "tool": "Edit",
+        "pattern": "**/*.uasset"
+      },
+      {
+        "tool": "Edit",
+        "pattern": "**/*.umap"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "Remove-Item *-Recurse*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "Remove-Item * -r*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "Remove-Item -r*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git push *--force*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git push -f *"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git push * -f*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git push * +*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git * push *--force*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *push* -f*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *push* -uf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *push* +*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git reset --hard*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *reset *--hard*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -f*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* --force*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -df*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -dxf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -dXf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -xf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -xdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -Xf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -Xdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -qf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git clean* -qdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -f*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* --force*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -df*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -qf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -xf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -Xf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -dqf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -qdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -dxf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -xdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -dXf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -Xdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -qxf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -xqf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -qXf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -Xqf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -dqxf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -dxqf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -qdxf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -qxdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -xdqf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -xqdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -dqXf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -dXqf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -qdXf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -qXdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -Xdqf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "git *clean* -Xqdf*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "Get-Content *.env*"
+      },
+      {
+        "tool": "PowerShell",
+        "pattern": "*>.env*"
+      }
+    ]
+  }
+}
